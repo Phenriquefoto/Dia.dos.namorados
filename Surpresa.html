@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Surpresa!</title>
+  <style>
+    body {
+      background: #f0e6ff;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #5a2a8f;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 40px;
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 20px auto;
+      line-height: 1.5;
+    }
+
+    .fotos {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .fotos img {
+      max-width: 200px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(93, 33, 129, 0.4);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .fotos img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Corações caindo */
+    .coracao {
+  position: fixed;
+  top: -50px;
+  width: 30px;
+  height: 30px;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%239D4EDD" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3 9.24 3 10.91 3.81 12 5.09 13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  animation-name: cair;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+    @keyframes cair {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    figcaption {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #4b1e75;
+  </style>
+</head>
+<body>
+  <h1>Surpresa, meu amor! ❤️</h1>
+  <p>
+    Venho agradecer pela sua companhia e por todo seu amor por mim. Dias que deveriam ser comuns e nada além da rotina, se tornam e se tornaram dias especiais ao seu lado.
+Tudo que envolve você ou nós dois, deixa de ser simples e comum, se torna algo especial, não só isso, mas faz com que toda memória ao seu lado, seja minha inspiração para ser a melhor vesão de mim, como profissional, como seu noivo, como filho e como um bom homem.
+Estar com você por esse tempo, me fez melhorar e crescer em todos os aspectos.
+  </p>
+
+  <div class="fotos">
+  	<figure>
+    <img src="https://i.postimg.cc/90NBsPQq/Whats-App-Image-2025-05-26-at-13-32-18.jpg" alt="Nosso primeiro beijo"/>
+    <figcaption>Nosso primeiro beijo!</figcaption>
+	</figure>
+	<figure>
+    <img src="https://i.postimg.cc/C5g1S5cM/Whats-App-Image-2025-05-26-at-13-37-09.jpg" alt="Primeiro buquê" />
+    <figcaption>Seu primeiro buquê de flor!</figcaption>
+	</figure>
+	<figure>
+    <img src="https://i.postimg.cc/G2sQ67fw/Whats-App-Image-2025-05-26-at-13-36-28.jpg" alt="Primeiro retrato seu" />
+    <figcaption>Meu primeiro retrato seu com minha câmera!</figcaption>
+</figure>
+  </div>
+
+  <script>
+    // Função pra criar corações caindo
+    function criarCoracao() {
+      const coracao = document.createElement('div');
+      coracao.classList.add('coracao');
+      coracao.style.left = Math.random() * window.innerWidth + 'px';
+      coracao.style.animationDuration = 3 + Math.random() * 2 + 's';
+      coracao.style.opacity = Math.random();
+
+      document.body.appendChild(coracao);
+
+      setTimeout(() => {
+        coracao.remove();
+      }, 5000);
+    }
+
+    // Criar vários corações ao carregar, só por 3 segundos
+    const intervalo = setInterval(criarCoracao, 200);
+
+    setTimeout(() => {
+      clearInterval(intervalo);
+    }, 3000);
+  </script>
+</body>
+</html>
