@@ -8,16 +8,48 @@
       margin: 0;
       padding: 0;
       background: #fff0f5;
+      font-family: sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Fundo com fotos misturadas */
+    .fundo-fotos {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .fundo-fotos img {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #a64ac9;
+      opacity: 0.3;
+      transform: rotate(calc(360deg * var(--r)));
+    }
+
+    /* Conteúdo por cima */
+    .conteudo {
+      position: relative;
+      z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      font-family: sans-serif;
+      height: 100%;
     }
 
     h1 {
       color: #a64ac9;
+      margin-bottom: 10px;
       text-align: center;
     }
 
@@ -36,7 +68,6 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 1rem;
-      margin-bottom: 5px;
     }
 
     .limpar:hover, .salvar:hover, #playBtn:hover {
@@ -45,11 +76,17 @@
   </style>
 </head>
 <body>
-  <h1>FELIZ DIA DOS NAMORADOS NARIGUDA!</h1>
-  <canvas id="tela" width="600" height="400"></canvas>
-  <button class="limpar" onclick="limpar()">🧹 Limpar desenho</button>
-  <button class="salvar" onclick="salvar()">💾 Salvar desenho</button>
-  <button id="playBtn">▶️ Tocar música suave</button>
+  <!-- Fundo com fotos -->
+  <div class="fundo-fotos" id="fundoFotos"></div>
+
+  <!-- Conteúdo central -->
+  <div class="conteudo">
+    <h1>FELIZ DIA DOS NAMORADOS NARIGUDA!</h1>
+    <canvas id="tela" width="600" height="400"></canvas>
+    <button class="limpar" onclick="limpar()">🧹 Limpar desenho</button>
+    <button class="salvar" onclick="salvar()">💾 Salvar desenho</button>
+    <button id="playBtn">▶️ Tocar música suave</button>
+  </div>
 
   <audio id="musicaFundo" loop>
     <source src="Just the Two of Us (feat. Bill Withers).mp3" type="audio/mpeg">
@@ -59,7 +96,6 @@
   <script>
     const canvas = document.getElementById('tela');
     const ctx = canvas.getContext('2d');
-
     let desenhando = false;
 
     canvas.addEventListener('mousedown', () => desenhando = true);
@@ -68,11 +104,9 @@
 
     canvas.addEventListener('mousemove', (e) => {
       if (!desenhando) return;
-
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       ctx.fillStyle = '#a64ac9';
       ctx.beginPath();
       ctx.arc(x, y, 2, 0, Math.PI * 2);
@@ -90,14 +124,38 @@
       link.click();
     }
 
+    // Música
     const musicaFundo = document.getElementById('musicaFundo');
     const playBtn = document.getElementById('playBtn');
-
     playBtn.addEventListener('click', () => {
       musicaFundo.volume = 0.2;
       musicaFundo.play();
       playBtn.style.display = 'none';
     });
+
+    // Fotos aleatórias no fundo
+    const fundo = document.getElementById('fundoFotos');
+    const fotos = [
+      "https://i.postimg.cc/0Qjdynh8/Whats-App-Image-2025-05-27-at-12-28-04.jpg",
+      "https://i.postimg.cc/wMdXQz7B/Whats-App-Image-2025-05-27-at-12-28-05.jpg",
+      "https://i.postimg.cc/QNb9y1zm/Whats-App-Image-2025-03-31-at-15-02-52.jpg",
+      "https://i.postimg.cc/Gt7phJw1/Whats-App-Image-2025-05-26-at-10-56-18.jpg",
+      "https://i.postimg.cc/LXm4t0mp/Whats-App-Image-2025-05-26-at-13-32-22-1.jpg",
+      "https://i.postimg.cc/c4Ps9JdT/Whats-App-Image-2025-05-26-at-13-32-22.jpg",
+      "https://i.postimg.cc/66mwqQ4w/Whats-App-Image-2025-05-26-at-13-32-21-2.jpg",
+      "https://i.postimg.cc/g2yfVcjx/Whats-App-Image-2025-05-26-at-13-32-21-1.jpg",
+      "https://i.postimg.cc/jdys1bCb/Whats-App-Image-2025-05-26-at-13-32-20-2.jpg",
+      "https://i.postimg.cc/qR9TmbTq/Whats-App-Image-2025-05-26-at-13-32-19.jpg"
+    ];
+
+    for (let i = 0; i < 25; i++) {
+      const img = document.createElement('img');
+      img.src = fotos[Math.floor(Math.random() * fotos.length)];
+      img.style.left = `${Math.random() * 100}%`;
+      img.style.top = `${Math.random() * 100}%`;
+      img.style.setProperty('--r', Math.random().toString()); // para rotação aleatória
+      fundo.appendChild(img);
+    }
   </script>
 </body>
 </html>
