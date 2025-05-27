@@ -228,10 +228,36 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #9333ea;
 }
+
+	#coracao-flutuante {
+  font-size: 80px;
+  position: absolute;
+  top: 10%;
+  left: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  animation: moverCoracao 4s infinite alternate ease-in-out;
+  z-index: 10;
+  transition: transform 0.3s;
+}
+
+#coracao-flutuante:hover {
+  transform: scale(1.2) translateY(-50%);
+}
+
+@keyframes moverCoracao {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: calc(100% - 80px);
+  }
+}
  	
   </style>
 </head>
 <body>
+	<div id="coracao-flutuante">❤️</div>
   <h1>Surpresa, meu amor! ❤️</h1>
   <p>
     Venho agradecer pela sua companhia e por todo seu amor por mim.
@@ -423,26 +449,21 @@ flipCardInner.addEventListener('click', () => {
 	</script>
 
 	<script>
-  // Função chamada quando o YouTube API estiver pronta
   function onYouTubeIframeAPIReady() {
-    const player = new YT.Player('video', {
-      events: {
-        'onStateChange': function(event) {
-          // Código 0 = vídeo terminou
-          if (event.data === 0) {
-            window.open('desenho.html', '_blank');
-          }
-        }
-      }
-    });
+    const player = new YT.Player('video');
   }
 
-  // Carregar a API do YouTube de forma assíncrona
   const tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   document.body.appendChild(tag);
 </script>
 
-	
+	<script>
+  const coracaoFlutuante = document.getElementById('coracao-flutuante');
+  coracaoFlutuante.addEventListener('click', () => {
+    window.location.href = 'desenho.html'; // ajuste o link se necessário
+  });
+</script>
+
 </body>
 </html>
