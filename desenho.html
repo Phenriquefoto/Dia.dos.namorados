@@ -27,7 +27,7 @@
       cursor: crosshair;
     }
 
-    .limpar, .salvar {
+    .limpar, .salvar, #playBtn {
       margin-top: 10px;
       padding: 10px 20px;
       background-color: #a64ac9;
@@ -39,7 +39,7 @@
       margin-bottom: 5px;
     }
 
-    .limpar:hover, .salvar:hover {
+    .limpar:hover, .salvar:hover, #playBtn:hover {
       background-color: #9333ea;
     }
   </style>
@@ -49,6 +49,12 @@
   <canvas id="tela" width="600" height="400"></canvas>
   <button class="limpar" onclick="limpar()">🧹 Limpar desenho</button>
   <button class="salvar" onclick="salvar()">💾 Salvar desenho</button>
+  <button id="playBtn">▶️ Tocar música suave</button>
+
+  <audio id="musicaFundo" loop>
+    <source src="Just the Two of Us (feat. Bill Withers).mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio HTML5.
+  </audio>
 
   <script>
     const canvas = document.getElementById('tela');
@@ -83,6 +89,15 @@
       link.href = canvas.toDataURL('image/png');
       link.click();
     }
+
+    const musicaFundo = document.getElementById('musicaFundo');
+    const playBtn = document.getElementById('playBtn');
+
+    playBtn.addEventListener('click', () => {
+      musicaFundo.volume = 0.2;
+      musicaFundo.play();
+      playBtn.style.display = 'none';
+    });
   </script>
 </body>
 </html>
