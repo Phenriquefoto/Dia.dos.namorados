@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nosso Desenho ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    h1 {
+      color: #a64ac9;
+      text-align: center;
+    }
+
+    canvas {
+      border: 2px solid #9333ea;
+      background: #fff;
+      cursor: crosshair;
+    }
+
+    .limpar, .salvar {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #a64ac9;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .limpar:hover, .salvar:hover {
+      background-color: #9333ea;
+    }
+  </style>
+</head>
+<body>
+  <h1>FELIZ DIA DOS NAMORADOS NARIGUDA!</h1>
+  <canvas id="tela" width="600" height="400"></canvas>
+  <button class="limpar" onclick="limpar()">🧹 Limpar desenho</button>
+  <button class="salvar" onclick="salvar()">💾 Salvar desenho</button>
+
+  <script>
+    const canvas = document.getElementById('tela');
+    const ctx = canvas.getContext('2d');
+
+    let desenhando = false;
+
+    canvas.addEventListener('mousedown', () => desenhando = true);
+    canvas.addEventListener('mouseup', () => desenhando = false);
+    canvas.addEventListener('mouseleave', () => desenhando = false);
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!desenhando) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ctx.fillStyle = '#a64ac9';
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    function limpar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function salvar() {
+      const link = document.createElement('a');
+      link.download = 'meu-desenho.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+  </script>
+</body>
+</html>
